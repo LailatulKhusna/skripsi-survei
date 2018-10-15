@@ -1,0 +1,8 @@
+{
+  "name": "skripsi-survei",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "pro_id": "aee7df60"
+}
