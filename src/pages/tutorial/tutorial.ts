@@ -32,19 +32,19 @@ export class TutorialPage {
         console.log('Loaded values', values);
         this.slides = [
           {
-            title: values.TUTORIAL_SLIDE1_TITLE,
-            description: values.TUTORIAL_SLIDE1_DESCRIPTION,
-            image: 'assets/img/ica-slidebox-img-1.png',
+            title: "Selamat Datang di Aplikasi Survei Kepuasan Pelanggan AHASS Handayani",
+            description: "Aplikasi ini digunakan untuk menilai kualitas pelayanan AHASS Handayani",
+            image: 'assets/img/customer-service.png',
           },
           {
-            title: values.TUTORIAL_SLIDE2_TITLE,
-            description: values.TUTORIAL_SLIDE2_DESCRIPTION,
-            image: 'assets/img/ica-slidebox-img-2.png',
+            title: "Kenapa di AHASS Handayani?",
+            description: "AHASS Bintang Motor melayani One Stop Service untuk perawatan / perbaikan ringan dan berat. Tersedia juga suku cadang atau sparepart untuk semua model sepeda motor Honda yang diproduksi  oleh PT Astra Honda Motor (AHM)",
+            image: 'assets/img/ayo-service.png',
           },
           {
             title: values.TUTORIAL_SLIDE3_TITLE,
             description: values.TUTORIAL_SLIDE3_DESCRIPTION,
-            image: 'assets/img/ica-slidebox-img-3.png',
+            image: 'assets/img/tukang.jpg',
           }
         ];
       });
