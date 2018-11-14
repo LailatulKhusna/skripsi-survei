@@ -1,14 +1,35 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Settings } from '../settings/settings';
 
 /**
  * Api is a generic REST Api handler. Set your API url first.
  */
 @Injectable()
 export class Api {
-  url: string = 'https://example.com/api/v1';
+  url: string = 'http://localhost/skripsi/public';
+  client: any = {
+    id:null,
+    secret:null
+  };
+  header:any;
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient,public settings:Settings) {
+    // this.settings.load().then(()=>{
+    //   this.settings.getValue('token').then(res=>{
+    //     this.header = new HttpHeaders({
+    //       'Accept':'appplication/json',
+    //       'Authorization':res.token_type+' '+res.access_token
+    //     });
+    //   });
+    // });
+  }
+
+  secret(){
+    this.http.get(this.url+'/api/oauthclients/2').subscribe(res=>{
+      console.log(res);
+      this.client = res;
+    });
   }
 
   get(endpoint: string, params?: any, reqOpts?: any) {

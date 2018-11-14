@@ -34,12 +34,23 @@ export class User {
    * the user entered on the form.
    */
   login(accountInfo: any) {
-    let seq = this.api.post('login', accountInfo).share();
+    let access = {
+      grant_type:'password',
+      username:accountInfo.email,
+      password:accountInfo.password,
+      client_id:this.api.client.id,
+      client_secret:this.api.client.secret
+    };
+
+    let seq = this.api.post('oauth/token', access).share();
 
     seq.subscribe((res: any) => {
       // If the API returned a successful response, mark the user as logged in
-      if (res.status == 'success') {
-        this._loggedIn(res);
+      
+      if (res.access_token) {
+        
+          this._loggedIn(res);
+        
       } else {
       }
     }, err => {
@@ -54,7 +65,7 @@ export class User {
    * the user entered on the form.
    */
   signup(accountInfo: any) {
-    let seq = this.api.post('signup', accountInfo).share();
+    let seq = this.api.post('api/users', accountInfo).share();
 
     seq.subscribe((res: any) => {
       // If the API returned a successful response, mark the user as logged in
