@@ -7,7 +7,7 @@ import { Settings } from '../settings/settings';
  */
 @Injectable()
 export class Api {
-  url: string = 'http://localhost/skripsi/public';
+  url: string = 'http://skripsi-ela.ardata.co.id';
   client: any = {
     id:null,
     secret:null
