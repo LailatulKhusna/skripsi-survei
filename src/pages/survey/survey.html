@@ -18,30 +18,24 @@
 	<ion-slides pager>
 
 	  <!-- Silde Pertama -->
-	  <ion-slide>
+	  <ion-slide *ngFor="let question of questions; let q=index">
 	  	<ion-card>
 		  <ion-card-header>
-		    Bidang Kebersihan
+		    {{question.field_list.name}}
 		  </ion-card-header>
 		  <ion-card-content>
-		    Nilai berdasarkan tingkat kepentingan dan performa sesuai dengan faktanya
-		  </ion-card-content>
-		</ion-card>
-
-		<ion-card>
-		  <ion-card-content>
-		  	1. APakah bidang kebersihan bengkel kami sudah bersih?
+		   {{ question.name }}
 		  </ion-card-content>
 		</ion-card>
 
 		<p>Tingkat Kepentingan </p>
 		<ion-grid>
 			<ion-row>
-				<ion-col><ion-img src="assets/img/sad.png" style="width:40px; height:40px;"> </ion-img></ion-col>
-				<ion-col><ion-img src="assets/img/sad.png" style="width:40px; height:40px;"> </ion-img></ion-col>
-				<ion-col><ion-img src="assets/img/sad.png" style="width:40px; height:40px;"> </ion-img></ion-col>
-				<ion-col><ion-img src="assets/img/sad.png" style="width:40px; height:40px;"> </ion-img></ion-col>
-				<ion-col><ion-img src="assets/img/sad.png" style="width:40px; height:40px;"> </ion-img></ion-col>
+				<ion-col *ngFor="let importance of importances; let i = index"><ion-img src="assets/img/sad.png" style="width:40px; height:40px;" id="importance{{question.id}}{{importance.id}}" (click)="giveImportance(q,question.id,importance.id,importance.value)"> </ion-img></ion-col>
+				<!-- <ion-col><ion-img src="assets/img/sad.png" style="width:40px; height:40px;" id="importance01" (click)="importance(0,1,2)"> </ion-img></ion-col>
+				<ion-col><ion-img src="assets/img/sad.png" style="width:40px; height:40px;" id="importance02" (click)="importance(0,2,3)"> </ion-img></ion-col>
+				<ion-col><ion-img src="assets/img/sad.png" style="width:40px; height:40px;" id="importance03" (click)="importance(0,3,4)"> </ion-img></ion-col>
+				<ion-col><ion-img src="assets/img/sad.png" style="width:40px; height:40px;" id="importance04" (click)="importance(0,4,5)"> </ion-img></ion-col> -->
 			</ion-row>	
 		</ion-grid>
 
@@ -56,39 +50,10 @@
 			</ion-row>	
 		</ion-grid>
 		  	
+		<button ion-button round (click)="survey()" >Primary Round</button>  	
 	  		
 	  		
 
-	  </ion-slide>
-
-	  <!-- Slide Kedua -->
-	  <ion-slide>
-	    <h2>Slide 2</h2>
-	  </ion-slide>
-
-	  <!-- Slide Ketiga -->
-	  <ion-slide>
-	    <h2>Slide 3</h2>
-	  </ion-slide>
-
-	  <!-- Slide Keempat -->
-	  <ion-slide>
-	    <h2>Slide 3</h2>
-	  </ion-slide>
-
-	  <!-- Slide Kelima -->
-	  <ion-slide>
-	    <h2>Slide 3</h2>
-	  </ion-slide>
-
-	  <!-- Slide Keenam -->
-	  <ion-slide>
-	    <h2>Slide 3</h2>
-	  </ion-slide>
-
-	  <!-- Slide Ketujuh -->
-	  <ion-slide>
-	    <h2>Slide 3</h2>
 	  </ion-slide>
 
 	</ion-slides>

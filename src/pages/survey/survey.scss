@@ -1,3 +1,8 @@
 page-survey {
-
+	ion-img{
+		transition: transform .5s;
+	}
+	ion-img:hover{
+		transform: scale(1.5);
+	}
 }
