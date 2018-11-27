@@ -22,4 +22,8 @@ export class ReviewPage {
     console.log('ionViewDidLoad ReviewPage');
   }
 
+  field(){
+    this.navCtrl.push("FieldPage");
+  }
+
 }

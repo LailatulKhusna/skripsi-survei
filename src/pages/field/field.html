@@ -13,19 +13,27 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
 	<ion-card>
-	  <img src="assets/img/clean.gif">
+		<ion-card-content>
+			<h2 style="text-align: center;">Pilihlah bidang yang akan Anda nilai</h2>
+		</ion-card-content>
+	</ion-card>
+	<ion-card>
+	  <img src="assets/img/ahass1.jpg">
 	  <ion-card-content>
-	    <ion-card-title>
-	      Pilihlah bidang yang akan Anda nilai
-	      </ion-card-title>
-	    <p>
 	     <button ion-button block color="danger" (click)="survey()">Bidang Kebersihan</button>
-	    </p>
 	  </ion-card-content>
 	</ion-card>
+
+	<ion-card>
+	  <!-- <img src="assets/img/note-taking.jpg"> -->
+	  <ion-card-content>
+	     <button ion-button block color="danger" (click)="review()">Tulis Ktitik & Saran</button>
+	  </ion-card-content>
+	</ion-card>
+
 		
 	
 </ion-content>

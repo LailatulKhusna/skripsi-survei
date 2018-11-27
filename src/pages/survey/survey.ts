@@ -118,5 +118,8 @@ export class SurveyPage {
     console.log(this.questions,perf_image);
   }
 
+  field(){
+    this.navCtrl.push("FieldPage");
+  }
 
 }

@@ -13,41 +13,45 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content >
 
 	<ion-slides pager>
 
 	  <!-- Silde Pertama -->
 	  <ion-slide *ngFor="let question of questions; let q=index">
 	  	<ion-card>
-		  <img src="assets/img/clean.gif" style="width: 45%; height: 45%; align-content: center;" >
+	  		<img src="assets/img/ahass1.jpg">
 		  	<ion-card-content>
-		    	<ion-card-title>
-		      		{{ question.name }}
-		    	</ion-card-title>
-		    
+		      	<h2>{{ question.name }}</h2>
 		  	</ion-card-content>
 		</ion-card>
 	  	
 
-		<p>Tingkat Kepentingan </p>
+		<h6>Apakah aspek ini penting?</h6>
 		<ion-grid>
 			<ion-row>
 				<ion-col *ngFor="let importance of importances; let i = index"><ion-img src="{{importance.img}}" style="width:50px; height:50px;" id="importance{{question.id}}{{importance.id}}" (click)="giveImportance(q,question.id,importance.id,importance.value)"> </ion-img></ion-col>
-			</ion-row>	
-		</ion-grid>
+			</ion-row>
 
-		<p>Tingkat Kinerja	 </p>
-		<ion-grid>
+		<h6>Bagaimana kinerja bengkel AHASS HANDAYANI?</h6>
 			<ion-row>
 				<ion-col *ngFor="let performance of performances; let p = index"><ion-img src="{{performance.img}}" style="width:50px; height:50px;" id="performance{{question.id}}{{performance.id}}" (click)="givePerformance(q,question.id,performance.id,performance.value)"> </ion-img></ion-col>
 			</ion-row>	
 		</ion-grid>
 		  	
-	  		
-	  		
-
+		
 	  </ion-slide>
+
+	  <ion-slide>
+	  	<button ion-button round color="danger" (click)="field()">Apakah ingin menilai bidang lain?</button>
+		<button ion-button round color="danger">Selesai</button>
+	  </ion-slide>
+	 
+	  	
+
+
+	
+
 
 	</ion-slides>
 

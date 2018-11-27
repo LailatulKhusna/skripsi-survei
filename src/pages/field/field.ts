@@ -25,6 +25,12 @@ export class FieldPage {
   survey(){
   	this.navCtrl.push("SurveyPage");
   }
+
+  review(){
+    this.navCtrl.push("ReviewPage");
+  }
+
+
   
 
 }
