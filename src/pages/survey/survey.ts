@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { NativeAudio } from '@ionic-native/native-audio';
 /**
  * Generated class for the SurveyPage page.
  *
@@ -33,20 +33,51 @@ export class SurveyPage {
   importances:any=[{
   	id:1,
   	value:1,
+    img:"assets/img/buruk.gif"
   },{
   	id:2,
-  	value:2
+  	value:2,
+    img:"assets/img/parah.gif"
   },{
   	id:3,
-  	value:3
+  	value:3,
+    img:"assets/img/cukup.gif"
   },{
   	id:4,
-  	value:4
+  	value:4,
+    img:"assets/img/puas.gif"
   },{
   	id:5,
-  	value:5
+  	value:5,
+    img:"assets/img/oke.gif"
   }];
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+  performances:any=[{
+    id:1,
+    value:1,
+    img:"assets/img/buruk.gif"
+  },{
+    id:2,
+    value:2,
+    img:"assets/img/parah.gif"
+  },{
+    id:3,
+    value:3,
+    img:"assets/img/cukup.gif"
+  },{
+    id:4,
+    value:4,
+    img:"assets/img/puas.gif"
+  },{
+    id:5,
+    value:5,
+    img:"assets/img/oke.gif"
+  }];
+  
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    private nativeAudio: NativeAudio) {
   
   }
 
@@ -55,6 +86,7 @@ export class SurveyPage {
   }
 
   giveImportance(question_index,question_id,importance_id,value){
+    
   	this.questions[question_index].importance = value;
   	// console.log(this.questions);
   	let imp_image = <HTMLElement>document.querySelector("#importance"+question_id+importance_id); 
@@ -69,5 +101,22 @@ export class SurveyPage {
   	});
   	console.log(this.questions,imp_image);
   }
+
+  givePerformance(question_index,question_id,performance_id,value){
+    this.questions[question_index].performance = value;
+    // console.log(this.questions);
+    let perf_image = <HTMLElement>document.querySelector("#performance"+question_id+performance_id); 
+    perf_image.style.transform = "scale(1.5)";
+    this.performances.forEach((perf,i)=>{
+      this.questions.forEach((ques,q)=>{
+        if(perf.id != performance_id && ques.id == question_id){
+          let other_perf_image = <HTMLElement>document.querySelector("#performance"+ques.id+perf.id); 
+          other_perf_image.style.transform = "scale(0)";
+        }
+      });
+    });
+    console.log(this.questions,perf_image);
+  }
+
 
 }
