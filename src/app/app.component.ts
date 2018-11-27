@@ -27,7 +27,7 @@ import { Settings,Api } from '../providers';
   <ion-nav #content [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage = MainPage;
+  rootPage:any;
 
   @ViewChild(Nav) nav: Nav;
 
@@ -48,7 +48,7 @@ export class MyApp {
   constructor(
     private translate: TranslateService, 
     platform: Platform, 
-    settings: Settings, 
+    public settings: Settings, 
     public api:Api,
     private config: Config, 
     private statusBar: StatusBar, 
@@ -59,7 +59,23 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.api.secret();
+
     });
+
+    this.settings.load().then(()=>{
+      this.settings.getValue('token').then(res=>{
+        if(!res){
+          this.rootPage = FirstRunPage;
+        } else {
+          this.api.get('api/user').subscribe(resp=>{
+            this.rootPage = MainPage;
+          },err=>{
+            this.rootPage = FirstRunPage;
+          });
+        }
+      });
+    });
+
     this.initTranslate();
   }
 

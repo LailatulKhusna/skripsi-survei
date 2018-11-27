@@ -12,17 +12,20 @@ export class Api {
     id:null,
     secret:null
   };
+
   header:any;
 
   constructor(public http: HttpClient,public settings:Settings) {
-    // this.settings.load().then(()=>{
-    //   this.settings.getValue('token').then(res=>{
-    //     this.header = new HttpHeaders({
-    //       'Accept':'appplication/json',
-    //       'Authorization':res.token_type+' '+res.access_token
-    //     });
-    //   });
-    // });
+    this.settings.load().then(()=>{
+      this.settings.getValue('token').then(res=>{
+        if(res != null){
+          this.header = new HttpHeaders({
+             'Accept':'application/json',
+             'Authorization':res.token_type+' '+res.access_token
+          });
+        }
+      });
+    });
   }
 
   secret(){
@@ -35,6 +38,7 @@ export class Api {
   get(endpoint: string, params?: any, reqOpts?: any) {
     if (!reqOpts) {
       reqOpts = {
+        headers: this.header,
         params: new HttpParams()
       };
     }
@@ -51,6 +55,9 @@ export class Api {
   }
 
   post(endpoint: string, body: any, reqOpts?: any) {
+    reqOpts = {
+      headers:this.header
+    }
     return this.http.post(this.url + '/' + endpoint, body, reqOpts);
   }
 

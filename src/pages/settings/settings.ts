@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 
-import { Settings } from '../../providers';
+import { Settings,User } from '../../providers';
 
 /**
  * The Settings page is a simple form that syncs with a Settings provider
@@ -38,7 +38,9 @@ export class SettingsPage {
     public settings: Settings,
     public formBuilder: FormBuilder,
     public navParams: NavParams,
-    public translate: TranslateService) {
+    public translate: TranslateService,
+    public app:App,
+    public user:User) {
   }
 
   _buildForm() {
@@ -91,5 +93,14 @@ export class SettingsPage {
 
   ngOnChanges() {
     console.log('Ng All Changes');
+  }
+
+  logout(){
+    this.settings.load().then(()=>{
+      this.settings.setValue('token',null);
+      this.settings.save();
+    });
+    this.user.logout();
+    this.app.getRootNav().setRoot('TutorialPage');
   }
 }

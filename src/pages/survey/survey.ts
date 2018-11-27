@@ -14,21 +14,7 @@ import { NativeAudio } from '@ionic-native/native-audio';
   templateUrl: 'survey.html',
 })
 export class SurveyPage {
-  questions:any=[{
-  	id:1,
-  	field_list:{
-  		id:1,
-  		name:"Bidang Kebersihan"
-  	},
-  	name:"Apakah Layanannya Bersih"
-  },{
-  	id:2,
-  	field_list:{
-  		id:1,
-  		name:"Bidang Kebersihan"
-  	},
-  	name:"Apakah Layanannya Bersih"
-  }];
+  questions:any;
 
   importances:any=[{
   	id:1,
@@ -78,6 +64,9 @@ export class SurveyPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     private nativeAudio: NativeAudio) {
+
+    this.questions = navParams.get('question_lists');
+    console.log(this.questions);
   
   }
 

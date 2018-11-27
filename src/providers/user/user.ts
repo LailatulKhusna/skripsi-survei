@@ -3,6 +3,7 @@ import 'rxjs/add/operator/toPromise';
 import { Injectable } from '@angular/core';
 
 import { Api } from '../api/api';
+import { Settings } from '../settings/settings';
 
 /**
  * Most apps have the concept of a User. This is a simple provider
@@ -27,7 +28,9 @@ import { Api } from '../api/api';
 export class User {
   _user: any;
 
-  constructor(public api: Api) { }
+  constructor(
+    public api: Api,
+    public settings:Settings) { }
 
   /**
    * Send a POST request to our login endpoint with the data
@@ -48,9 +51,22 @@ export class User {
       // If the API returned a successful response, mark the user as logged in
       
       if (res.access_token) {
-        
-          this._loggedIn(res);
-        
+
+        this.settings.load().then(()=>{
+          this.settings.setValue('token',res);
+          this.settings.save();
+        });
+
+        this.api.get('api/user').subscribe(resp=>{
+          
+          this.settings.load().then(()=>{
+            this.settings.setValue('user',resp);
+            this.settings.save();
+          });
+
+          this._loggedIn(resp);
+        });
+
       } else {
       }
     }, err => {

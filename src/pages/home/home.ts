@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Settings, Api } from '../../providers';
 
 /**
  * Generated class for the HomePage page.
@@ -15,19 +16,26 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public settings: Settings,
+    public api:Api) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
+
   }
 
-  survey(){
-  	this.navCtrl.push("SurveyPage");
-  }
+  // survey(){
+  // 	this.navCtrl.push("SurveyPage");
+  // }
 
   field(){
+
     this.navCtrl.push("FieldPage");
+  
   }
 
 }
