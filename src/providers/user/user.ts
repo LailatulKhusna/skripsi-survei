@@ -27,6 +27,8 @@ import { Settings } from '../settings/settings';
 @Injectable()
 export class User {
   _user: any;
+  fields:any=[];
+  review:any={};
 
   constructor(
     public api: Api,

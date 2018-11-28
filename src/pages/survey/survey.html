@@ -18,7 +18,7 @@
 	<ion-slides pager>
 
 	  <!-- Silde Pertama -->
-	  <ion-slide *ngFor="let question of questions; let q=index">
+	  <ion-slide *ngFor="let question of field.question_lists; let q=index">
 	  	<ion-card>
 	  		<img src="assets/img/ahass1.jpg">
 		  	<ion-card-content>
@@ -43,8 +43,8 @@
 	  </ion-slide>
 
 	  <ion-slide>
-	  	<button ion-button round color="danger" (click)="field()">Apakah ingin menilai bidang lain?</button>
-		<button ion-button round color="danger">Selesai</button>
+	  	<button ion-button round color="danger" (click)="pushPage('FieldPage')">Apakah ingin menilai bidang lain?</button>
+		<button ion-button round color="danger" (click)="finish()">Selesai</button>
 	  </ion-slide>
 	 
 	  	

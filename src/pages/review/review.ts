@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Settings,Api,User } from '../../providers';
 
 /**
  * Generated class for the ReviewPage page.
@@ -15,7 +16,11 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ReviewPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  review:any={
+    name:""
+  };
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public user:User, public api:Api, public settings:Settings) {
   }
 
   ionViewDidLoad() {
@@ -23,7 +28,31 @@ export class ReviewPage {
   }
 
   field(){
+    this.user.review = this.review;
     this.navCtrl.push("FieldPage");
+  }
+
+  finish(){
+    this.settings.load().then(()=>{
+      this.settings.getValue('user').then(res=>{
+
+        let access = {
+          session:{
+            branch_id:res.branch_id,
+            name:"Survey ke"
+          },
+          fields:this.user.fields,
+          review:this.review
+        }
+        console.log(access);
+        this.api.post("api/sessions",access).subscribe(res=>{
+          console.log("hasil",res);
+        },err=>{
+          console.log("err",err);
+        });
+
+      });
+    });
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { NativeAudio } from '@ionic-native/native-audio';
+import { Settings,Api,User } from '../../providers';
 /**
  * Generated class for the SurveyPage page.
  *
@@ -14,7 +15,7 @@ import { NativeAudio } from '@ionic-native/native-audio';
   templateUrl: 'survey.html',
 })
 export class SurveyPage {
-  questions:any;
+  field:any={};
 
   importances:any=[{
   	id:1,
@@ -63,10 +64,13 @@ export class SurveyPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    private nativeAudio: NativeAudio) {
+    private nativeAudio: NativeAudio,
+    public user:User,
+    public settings:Settings,
+    public api:Api) {
 
-    this.questions = navParams.get('question_lists');
-    console.log(this.questions);
+    this.field = navParams.get('field');
+    console.log("sek",this.field);
   
   }
 
@@ -75,40 +79,62 @@ export class SurveyPage {
   }
 
   giveImportance(question_index,question_id,importance_id,value){
-    
-  	this.questions[question_index].importance = value;
-  	// console.log(this.questions);
+  	this.field.question_lists[question_index].importance = value;
+  	// console.log(this.field.question_lists);
   	let imp_image = <HTMLElement>document.querySelector("#importance"+question_id+importance_id); 
   	imp_image.style.transform = "scale(1.5)";
   	this.importances.forEach((imp,i)=>{
-  		this.questions.forEach((ques,q)=>{
+  		this.field.question_lists.forEach((ques,q)=>{
   			if(imp.id != importance_id && ques.id == question_id){
   				let other_imp_image = <HTMLElement>document.querySelector("#importance"+ques.id+imp.id); 
   				other_imp_image.style.transform = "scale(0)";
   			}
   		});
   	});
-  	console.log(this.questions,imp_image);
+  	console.log(this.field,imp_image);
   }
 
   givePerformance(question_index,question_id,performance_id,value){
-    this.questions[question_index].performance = value;
-    // console.log(this.questions);
+    this.field.question_lists[question_index].performance = value;
+    // console.log(this.field.question_lists);
     let perf_image = <HTMLElement>document.querySelector("#performance"+question_id+performance_id); 
     perf_image.style.transform = "scale(1.5)";
     this.performances.forEach((perf,i)=>{
-      this.questions.forEach((ques,q)=>{
+      this.field.question_lists.forEach((ques,q)=>{
         if(perf.id != performance_id && ques.id == question_id){
           let other_perf_image = <HTMLElement>document.querySelector("#performance"+ques.id+perf.id); 
           other_perf_image.style.transform = "scale(0)";
         }
       });
     });
-    console.log(this.questions,perf_image);
+    console.log(this.field,perf_image);
   }
 
-  field(){
-    this.navCtrl.push("FieldPage");
+  pushPage(page){
+    this.user.fields.push(this.field);
+    this.navCtrl.push(page);
+  }
+
+  finish(){
+    this.settings.load().then(()=>{
+      this.settings.getValue('user').then(res=>{
+
+        let access = {
+          session:{
+            branch_id:res.branch_id,
+            name:"Survey ke "
+          },
+          fields:this.user.fields
+        }
+        console.log("we",access);
+        this.api.post("api/sessions",access).subscribe(res=>{
+          console.log("hasil",res);
+        },err=>{
+          console.log("err",err);
+        });
+
+      });
+    });
   }
 
 }

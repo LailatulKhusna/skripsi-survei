@@ -29,11 +29,11 @@
 		<ion-list>
 		   	<ion-item>
 			    <ion-label stacked style="text-align:center;">Kritik dan saran Anda</ion-label>
-			    <ion-input type="text"></ion-input>
+			    <ion-input type="text" [(ngModel)]="review.name"></ion-input>
 			</ion-item>
 		</ion-list>
 
-	<button ion-button block color="danger">Selesai</button>
+	<button ion-button block color="danger" (click)="finish()">Selesai</button>
 	<!-- <button ion-button block color="danger" (click)="field()">Kembali</button> -->
 			
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Settings,Api } from '../../providers';
+import { Settings,Api,User } from '../../providers';
 
 /**
  * Generated class for the FieldPage page.
@@ -18,9 +18,14 @@ export class FieldPage {
 
   fields:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public settings:Settings, public api:Api) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public settings:Settings, 
+    public api:Api,
+    public user:User) {
 
-    this.api.get('api/user').subscribe(resp=>{     
+    this.api.get('api/user').subscribe((resp:any)=>{     
 
       this.fields = resp.branch.field_lists;
 
@@ -30,7 +35,7 @@ export class FieldPage {
 
   doRefresh(refresher) {
     console.log('Begin async operation', refresher);
-    this.api.get('api/user').subscribe(resp=>{     
+    this.api.get('api/user').subscribe((resp:any)=>{     
 
       this.fields = resp.branch.field_lists;
 
@@ -42,21 +47,19 @@ export class FieldPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad FieldPage');
+    console.log('ionViewDidLoad FieldPage',this.user.fields);
   }
 
   survey(id){
-    this.api.get('api/fieldlists/'+id).subscribe(res=>{
+    this.api.get('api/fieldlists/'+id).subscribe((res:any)=>{
       console.log(res,id);
-  	  this.navCtrl.push("SurveyPage",{question_lists:res.question_lists});
+  	  this.navCtrl.push("SurveyPage",{field:res});
     });
   }
 
   review(){
     this.navCtrl.push("ReviewPage");
   }
-
-
   
 
 }
