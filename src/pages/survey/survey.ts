@@ -129,8 +129,16 @@ export class SurveyPage {
         console.log("we",access);
         this.api.post("api/sessions",access).subscribe(res=>{
           console.log("hasil",res);
+          // reset variable fields sama review di User.ts jadi null biar kosong
+          // code kembali ke halaman home sambil ngasi parameter berhasil supaya di home.ts
+          this.user.fields=[];
+
+          this.navCtrl.push('HomePage',{message:'success'});
+          // bisa memunculkan popup , jadi di cek klo ada parameter berhasil tampilkan kalo tidak ada ga usah
         },err=>{
           console.log("err",err);
+
+          this.navCtrl.push('HomePage',{message:'error'});
         });
 
       });

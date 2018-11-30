@@ -47,8 +47,18 @@ export class ReviewPage {
         console.log(access);
         this.api.post("api/sessions",access).subscribe(res=>{
           console.log("hasil",res);
+          // reset variable fields sama review di User.ts jadi null biar kosong
+          // code kembali ke halaman home sambil ngasi parameter berhasil supaya di home.ts
+          this.user.fields=[];
+          this.review={};
+
+          this.navCtrl.push('HomePage',{message:'success'});
+          // bisa memunculkan popup , jadi di cek klo ada parameter berhasil tampilkan kalo tidak ada ga usah
         },err=>{
           console.log("err",err);
+          // jangan di reset lalu kembali ke halaman field.ts lalu kasi parameter gagal 
+          // biar bisa muncul popup gagal terjadi kesalahan
+          this.navCtrl.push('HomePage',{message:'error'});
         });
 
       });

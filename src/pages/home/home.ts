@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Settings, Api } from '../../providers';
+import { AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the HomePage page.
@@ -16,15 +17,28 @@ import { Settings, Api } from '../../providers';
 })
 export class HomePage {
 
+  message:any;
+
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     public settings: Settings,
-    public api:Api) {
+    public api:Api,
+    public alertCtrl: AlertController) {
+
+    this.message = this.navParams.get('message');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
+
+    if(this.message=='success'){
+      console.log('yey');
+      this.showAlert('Sukses','Terimakasih sudah kuisioner');
+    }else if(this.message=='error'){
+      console.log('gagal');
+      this.showAlert('Eror','Terjadi kesalahan');
+    }
 
   }
 
@@ -36,6 +50,15 @@ export class HomePage {
 
     this.navCtrl.push("FieldPage");
   
+  }
+
+  showAlert(title,message) {
+    const alert = this.alertCtrl.create({
+      title: title,
+      subTitle: message,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 }
