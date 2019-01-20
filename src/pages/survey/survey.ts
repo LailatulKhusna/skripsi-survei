@@ -81,13 +81,13 @@ export class SurveyPage {
   giveImportance(question_index,question_id,importance_id,value){
   	this.field.question_lists[question_index].importance = value;
   	// console.log(this.field.question_lists);
-  	let imp_image = <HTMLElement>document.querySelector("#importance"+question_id+importance_id); 
-  	imp_image.style.transform = "scale(1.5)";
+    var imp_image = document.getElementById("importance"+question_id+importance_id);
+    imp_image.style.transform = "scale(1.5)";
   	this.importances.forEach((imp,i)=>{
   		this.field.question_lists.forEach((ques,q)=>{
   			if(imp.id != importance_id && ques.id == question_id){
-  				let other_imp_image = <HTMLElement>document.querySelector("#importance"+ques.id+imp.id); 
-  				other_imp_image.style.transform = "scale(0)";
+          var other_imp_image = document.getElementById("importance"+ques.id+imp.id);
+          other_imp_image.style.transform = "scale(0)";
   			}
   		});
   	});
@@ -96,13 +96,12 @@ export class SurveyPage {
 
   givePerformance(question_index,question_id,performance_id,value){
     this.field.question_lists[question_index].performance = value;
-    // console.log(this.field.question_lists);
-    let perf_image = <HTMLElement>document.querySelector("#performance"+question_id+performance_id); 
+    var perf_image = document.getElementById("performance"+question_id+performance_id); 
     perf_image.style.transform = "scale(1.5)";
     this.performances.forEach((perf,i)=>{
       this.field.question_lists.forEach((ques,q)=>{
         if(perf.id != performance_id && ques.id == question_id){
-          let other_perf_image = <HTMLElement>document.querySelector("#performance"+ques.id+perf.id); 
+          var other_perf_image = document.getElementById("performance"+ques.id+perf.id); 
           other_perf_image.style.transform = "scale(0)";
         }
       });
@@ -116,6 +115,7 @@ export class SurveyPage {
   }
 
   finish(){
+    this.user.fields.push(this.field);
     this.settings.load().then(()=>{
       this.settings.getValue('user').then(res=>{
 
@@ -132,7 +132,7 @@ export class SurveyPage {
           // reset variable fields sama review di User.ts jadi null biar kosong
           // code kembali ke halaman home sambil ngasi parameter berhasil supaya di home.ts
           this.user.fields=[];
-
+          
           this.navCtrl.push('HomePage',{message:'success'});
           // bisa memunculkan popup , jadi di cek klo ada parameter berhasil tampilkan kalo tidak ada ga usah
         },err=>{

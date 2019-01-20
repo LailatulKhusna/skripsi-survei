@@ -38,13 +38,8 @@ export class TutorialPage {
           },
           {
             title: "Kenapa di AHASS Handayani?",
-            description: "AHASS Bintang Motor melayani One Stop Service untuk perawatan / perbaikan ringan dan berat. Tersedia juga suku cadang atau sparepart untuk semua model sepeda motor Honda yang diproduksi  oleh PT Astra Honda Motor (AHM)",
+            description: "AHASS Handayani melayani One Stop Service untuk perawatan / perbaikan ringan dan berat. Tersedia juga suku cadang atau sparepart untuk semua model sepeda motor Honda yang diproduksi  oleh PT Astra Honda Motor (AHM)",
             image: 'assets/img/ayo-service.png',
-          },
-          {
-            title: values.TUTORIAL_SLIDE3_TITLE,
-            description: values.TUTORIAL_SLIDE3_DESCRIPTION,
-            image: 'assets/img/tukang.jpg',
           }
         ];
       });

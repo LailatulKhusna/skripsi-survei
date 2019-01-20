@@ -33,6 +33,7 @@ export class ReviewPage {
   }
 
   finish(){
+    this.user.review = this.review;
     this.settings.load().then(()=>{
       this.settings.getValue('user').then(res=>{
 
@@ -45,13 +46,13 @@ export class ReviewPage {
           review:this.review
         }
         console.log(access);
-        this.api.post("api/sessions",access).subscribe(res=>{
-          console.log("hasil",res);
+        this.api.post("api/sessions",access).subscribe(result=>{
+          // console.log("hasil",res);
           // reset variable fields sama review di User.ts jadi null biar kosong
           // code kembali ke halaman home sambil ngasi parameter berhasil supaya di home.ts
           this.user.fields=[];
           this.review={};
-
+          
           this.navCtrl.push('HomePage',{message:'success'});
           // bisa memunculkan popup , jadi di cek klo ada parameter berhasil tampilkan kalo tidak ada ga usah
         },err=>{

@@ -35,6 +35,10 @@ export class HomePage {
     if(this.message=='success'){
       console.log('yey');
       this.showAlert('Sukses','Terimakasih sudah kuisioner');
+      setTimeout(()=>{
+        location.reload();
+      },2000);
+
     }else if(this.message=='error'){
       console.log('gagal');
       this.showAlert('Eror','Terjadi kesalahan');
