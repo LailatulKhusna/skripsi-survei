@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Settings,Api,User } from '../../providers';
 
 /**
@@ -19,8 +19,20 @@ export class ReviewPage {
   review:any={
     name:""
   };
+  public loading;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public user:User, public api:Api, public settings:Settings) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public user:User, 
+    public api:Api, 
+    public settings:Settings,
+    public loadingCtrl: LoadingController) {
+
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+
   }
 
   ionViewDidLoad() {
@@ -33,6 +45,7 @@ export class ReviewPage {
   }
 
   finish(){
+    this.loading.present();
     this.user.review = this.review;
     this.settings.load().then(()=>{
       this.settings.getValue('user').then(res=>{
@@ -48,6 +61,7 @@ export class ReviewPage {
         console.log(access);
         this.api.post("api/sessions",access).subscribe(result=>{
           // console.log("hasil",res);
+          this.loading.dismiss();
           // reset variable fields sama review di User.ts jadi null biar kosong
           // code kembali ke halaman home sambil ngasi parameter berhasil supaya di home.ts
           this.user.fields=[];
@@ -57,6 +71,7 @@ export class ReviewPage {
           // bisa memunculkan popup , jadi di cek klo ada parameter berhasil tampilkan kalo tidak ada ga usah
         },err=>{
           console.log("err",err);
+          this.loading.dismiss();
           // jangan di reset lalu kembali ke halaman field.ts lalu kasi parameter gagal 
           // biar bisa muncul popup gagal terjadi kesalahan
           this.navCtrl.push('HomePage',{message:'error'});

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App, LoadingController } from 'ionic-angular';
 
 import { Settings,User } from '../../providers';
 
@@ -34,13 +34,21 @@ export class SettingsPage {
 
   subSettings: any = SettingsPage;
 
+  public loading;
+
   constructor(public navCtrl: NavController,
     public settings: Settings,
     public formBuilder: FormBuilder,
     public navParams: NavParams,
     public translate: TranslateService,
     public app:App,
-    public user:User) {
+    public user:User,
+    public loadingCtrl: LoadingController) {
+
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+
   }
 
   _buildForm() {
@@ -96,11 +104,13 @@ export class SettingsPage {
   }
 
   logout(){
+    this.loading.present();
     this.settings.load().then(()=>{
       this.settings.setValue('token',null);
       this.settings.save();
     });
     this.user.logout();
+    this.loading.dismiss();
     this.app.getRootNav().setRoot('TutorialPage');
   }
 }

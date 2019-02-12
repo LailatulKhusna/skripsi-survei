@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { NativeAudio } from '@ionic-native/native-audio';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Settings,Api,User } from '../../providers';
 /**
  * Generated class for the SurveyPage page.
@@ -19,59 +18,73 @@ export class SurveyPage {
 
   importances:any=[{
   	id:1,
+    name:'buruk',
   	value:1,
     img:"assets/img/buruk.gif"
   },{
   	id:2,
+    name:'parah',
   	value:2,
     img:"assets/img/parah.gif"
   },{
   	id:3,
+    name:'cukup',
   	value:3,
     img:"assets/img/cukup.gif"
   },{
   	id:4,
+    name:'puas',
   	value:4,
     img:"assets/img/puas.gif"
   },{
   	id:5,
+    name:'oke',
   	value:5,
     img:"assets/img/oke.gif"
   }];
 
   performances:any=[{
     id:1,
+    name:'buruk',
     value:1,
     img:"assets/img/buruk.gif"
   },{
     id:2,
+    name:'parah',
     value:2,
     img:"assets/img/parah.gif"
   },{
     id:3,
+    name:'cukup',
     value:3,
     img:"assets/img/cukup.gif"
   },{
     id:4,
+    name:'puas',
     value:4,
     img:"assets/img/puas.gif"
   },{
     id:5,
+    name:'oke',
     value:5,
     img:"assets/img/oke.gif"
   }];
   
+  public loading;
+
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    private nativeAudio: NativeAudio,
     public user:User,
     public settings:Settings,
-    public api:Api) {
+    public api:Api,
+    public loadingCtrl: LoadingController) {
 
     this.field = navParams.get('field');
-    console.log("sek",this.field);
-  
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+
   }
 
   ionViewDidLoad() {
@@ -115,6 +128,7 @@ export class SurveyPage {
   }
 
   finish(){
+    this.loading.present();
     this.user.fields.push(this.field);
     this.settings.load().then(()=>{
       this.settings.getValue('user').then(res=>{
@@ -129,6 +143,7 @@ export class SurveyPage {
         console.log("we",access);
         this.api.post("api/sessions",access).subscribe(res=>{
           console.log("hasil",res);
+          this.loading.dismiss();
           // reset variable fields sama review di User.ts jadi null biar kosong
           // code kembali ke halaman home sambil ngasi parameter berhasil supaya di home.ts
           this.user.fields=[];
@@ -137,7 +152,7 @@ export class SurveyPage {
           // bisa memunculkan popup , jadi di cek klo ada parameter berhasil tampilkan kalo tidak ada ga usah
         },err=>{
           console.log("err",err);
-
+          this.loading.dismiss();
           this.navCtrl.push('HomePage',{message:'error'});
         });
 

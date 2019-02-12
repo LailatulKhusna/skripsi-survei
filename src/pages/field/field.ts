@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Settings,Api,User } from '../../providers';
 
 /**
@@ -17,18 +17,25 @@ import { Settings,Api,User } from '../../providers';
 export class FieldPage {
 
   fields:any;
+  public loading;
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public settings:Settings, 
     public api:Api,
-    public user:User) {
+    public user:User,
+    public loadingCtrl: LoadingController) {
 
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+
+    this.loading.present();
     this.api.get('api/user').subscribe((resp:any)=>{     
 
       this.fields = resp.branch.field_lists;
-
+      this.loading.dismiss();
     });
 
   }

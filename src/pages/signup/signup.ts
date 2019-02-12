@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { IonicPage, NavController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, ToastController, LoadingController } from 'ionic-angular';
 
 import { User } from '../../providers';
 import { MainPage } from '../';
@@ -22,25 +22,34 @@ export class SignupPage {
 
   // Our translated text strings
   private signupErrorString: string;
+  public loading;
 
   constructor(public navCtrl: NavController,
     public user: User,
     public toastCtrl: ToastController,
-    public translateService: TranslateService) {
+    public translateService: TranslateService,
+    public loadingCtrl: LoadingController) {
 
     this.translateService.get('SIGNUP_ERROR').subscribe((value) => {
       this.signupErrorString = value;
-    })
+    });
+
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+
   }
 
   doSignup() {
     // Attempt to login in through our User service
+    this.loading.present();
     this.user.signup(this.account).subscribe((resp) => {
+      this.loading.dismiss();
       this.navCtrl.push(MainPage);
     }, (err) => {
 
-      this.navCtrl.push(MainPage);
-
+      // this.navCtrl.push(MainPage);
+      this.loading.dismiss();
       // Unable to sign up
       let toast = this.toastCtrl.create({
         message: this.signupErrorString,
