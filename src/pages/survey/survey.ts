@@ -18,54 +18,54 @@ export class SurveyPage {
 
   importances:any=[{
   	id:1,
-    name:'buruk',
+    name:'Sangat Tidak',
   	value:1,
     img:"assets/img/buruk.gif"
   },{
   	id:2,
-    name:'parah',
+    name:'Tidak',
   	value:2,
     img:"assets/img/parah.gif"
   },{
   	id:3,
-    name:'cukup',
+    name:'Cukup',
   	value:3,
     img:"assets/img/cukup.gif"
   },{
   	id:4,
-    name:'puas',
+    name:'Penting',
   	value:4,
     img:"assets/img/puas.gif"
   },{
   	id:5,
-    name:'oke',
+    name:'Sangat Penting',
   	value:5,
     img:"assets/img/oke.gif"
   }];
 
   performances:any=[{
     id:1,
-    name:'buruk',
+    name:'Sangat Tidak',
     value:1,
     img:"assets/img/buruk.gif"
   },{
     id:2,
-    name:'parah',
+    name:'Tidak',
     value:2,
     img:"assets/img/parah.gif"
   },{
     id:3,
-    name:'cukup',
+    name:'Cukup',
     value:3,
     img:"assets/img/cukup.gif"
   },{
     id:4,
-    name:'puas',
+    name:'Puas',
     value:4,
     img:"assets/img/puas.gif"
   },{
     id:5,
-    name:'oke',
+    name:'Sangat Puas',
     value:5,
     img:"assets/img/oke.gif"
   }];

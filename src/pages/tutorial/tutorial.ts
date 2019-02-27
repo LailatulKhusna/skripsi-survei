@@ -34,7 +34,7 @@ export class TutorialPage {
           {
             title: "Selamat Datang di Aplikasi Survei Kepuasan Pelanggan AHASS Handayani",
             description: "Aplikasi ini digunakan untuk menilai kualitas pelayanan AHASS Handayani",
-            image: 'assets/img/welcome.png',
+            image: 'assets/img/cs.png',
           },
           {
             title: "Kenapa di AHASS Handayani?",

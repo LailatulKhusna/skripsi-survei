@@ -22,7 +22,7 @@
 	  	<ion-card color="danger">
 	  		<!-- <img src="assets/img/ahass1.jpg"> -->
 		  	<ion-card-content>
-		      	<h1>{{ question.name }}</h1>
+		      	<h2>{{ question.name }}</h2>
 		  	</ion-card-content>
 		</ion-card>
 	  	
@@ -33,16 +33,16 @@
 				<ion-col *ngFor="let importance of importances; let i = index">
 					<ion-img src="{{importance.img}}" style="width:50px; height:50px;" class="pics" id="importance{{question.id}}{{importance.id}}" (click)="giveImportance(q,question.id,importance.id,importance.value)"> 
 					</ion-img>
-					<h5>{{ importance.name }}</h5>
+					<h6>{{ importance.name }}</h6>
 				</ion-col>
 			</ion-row>
 
-		<h6>Bagaimana kinerja bengkel AHASS HANDAYANI?</h6>
+		<h6>Bagaimana kepuasan Anda terhadap pelayanan bengkel?</h6>
 			<ion-row>
 				<ion-col *ngFor="let performance of performances; let p = index">
 					<ion-img src="{{performance.img}}" style="width:50px; height:50px;" id="performance{{question.id}}{{performance.id}}" (click)="givePerformance(q,question.id,performance.id,performance.value)"> 
 					</ion-img>
-					<h5>{{ performance.name }}</h5>
+					<h6>{{ performance.name }}</h6>
 				</ion-col>
 			</ion-row>	
 		</ion-grid>
