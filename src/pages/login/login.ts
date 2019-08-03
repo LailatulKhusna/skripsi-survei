@@ -43,12 +43,16 @@ export class LoginPage {
   doLogin() {
     this.loading.present();
     this.user.login(this.account).subscribe((resp) => {
-      this.loading.dismiss();
+      if(this.loading){
+          this.loading.dismiss();
+      }
       this.navCtrl.push(MainPage);
     }, (err) => {
       // this.navCtrl.push(MainPage);
       // Unable to log in
-      this.loading.dismiss();
+      if(this.loading){
+          this.loading.dismiss();
+      }
       let toast = this.toastCtrl.create({
         message: this.loginErrorString,
         duration: 3000,

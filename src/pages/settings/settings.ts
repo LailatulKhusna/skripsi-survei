@@ -109,8 +109,11 @@ export class SettingsPage {
       this.settings.setValue('token',null);
       this.settings.save();
     });
+    this.user.fields = [];
     this.user.logout();
-    this.loading.dismiss();
+    if(this.loading){
+        this.loading.dismiss();
+    }
     this.app.getRootNav().setRoot('TutorialPage');
   }
 }

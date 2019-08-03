@@ -34,7 +34,7 @@ export class HomePage {
 
     if(this.message=='success'){
       console.log('yey');
-      this.showAlert('Sukses','Terimakasih sudah kuisioner');
+      this.showAlert('Sukses','Terimakasih telah mengisi survei');
       setTimeout(()=>{
         location.reload();
       },2000);

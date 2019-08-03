@@ -31,13 +31,6 @@ export class FieldPage {
       content: 'Please wait...'
     });
 
-    this.loading.present();
-    this.api.get('api/user').subscribe((resp:any)=>{     
-
-      this.fields = resp.branch.field_lists;
-      this.loading.dismiss();
-    });
-
   }
 
   doRefresh(refresher) {
@@ -55,6 +48,13 @@ export class FieldPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FieldPage',this.user.fields);
+    this.loading.present();
+    this.fields = [];
+    this.api.get('api/user').subscribe((resp:any)=>{     
+
+      this.fields = resp.branch.field_lists;
+      this.loading.dismiss();
+    });
   }
 
   survey(id){
